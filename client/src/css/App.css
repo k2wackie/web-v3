@@ -94,4 +94,5 @@ textarea {
 
 .bulletinItem {
   padding: 10px;
+  white-space: pre-wrap;
 }

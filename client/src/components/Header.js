@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import MainMenu from "./MainMenu";
 
@@ -12,4 +13,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

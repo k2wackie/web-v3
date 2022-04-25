@@ -22,7 +22,8 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/add", (req, res) => {
-  const sql = "INSERT INTO web_v3.bulletin VALUES (null, ?, ?, now());";
+  const sql =
+    "INSERT INTO web_v3.bulletin (author, content, in_date) VALUES (?, ?, now());";
   const author = req.body.author;
   const content = req.body.content;
   const params = [author, content];

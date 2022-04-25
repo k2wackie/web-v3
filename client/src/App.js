@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./css/App.css";
 import New from "./pages/New";
@@ -8,57 +8,59 @@ import Edit from "./pages/Edit";
 export const BulletinStateContext = React.createContext();
 export const BulletinDispatchContext = React.createContext();
 
-function App() {
-  const [data, setData] = useState([]);
-  // const [data, dispatch] = useReducer(reducer, []);
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "GET": {
+      return action.data;
+    }
+    case "CREATE": {
+      fetch(action.data.isEdit ? "/edit" : "/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(action.data),
+      });
+      return [];
+    }
+    case "DELETE": {
+      fetch("/delete/" + action.data, {
+        method: "DELETE",
+      }).catch((err) => console.log(err));
+      return [];
+    }
+    default:
+      return state;
+  }
+};
 
+function App() {
+  const [data, dispatch] = useReducer(reducer, []);
+
+  //GET DATA
   useEffect(() => {
     fetch("/api")
       .then((res) => res.json())
       .then((newData) => {
-        // console.log(data, newData);
-        setData(newData);
+        dispatch({ type: "GET", data: newData });
       })
       .catch((err) => console.log(err));
   }, [data.length]);
 
   // CREATE || EDIT
   const onCreateEdit = (author, content, id, isEdit) => {
-    const newItem = {
-      author,
-      content,
-    };
-
     const req = {
-      author: newItem.author,
-      content: newItem.content,
       id: id,
+      author: author,
+      content: content,
+      isEdit: isEdit,
     };
-
-    fetch(isEdit ? "/edit" : "/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(req),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setData([]);
-      })
-      .catch((err) => console.log(err));
+    dispatch({ type: "CREATE", data: req });
   };
 
   //DELETE
   const onRemove = (id) => {
-    fetch("/delete/" + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setData([]);
-      })
-      .catch((err) => console.log(err));
+    dispatch({ type: "DELETE", data: id });
   };
 
   return (

@@ -1,8 +1,8 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BulletinDispatchContext } from "../App";
 
-const BulletinEditor = ({ isEdit, originData, id }) => {
+const BulletinEditor = ({ isEdit, chosenData, id }) => {
   const { onCreateEdit, onRemove } = useContext(BulletinDispatchContext);
 
   const navigate = useNavigate();
@@ -14,8 +14,6 @@ const BulletinEditor = ({ isEdit, originData, id }) => {
   const [content, setContent] = useState("");
 
   const handleSubmit = (e) => {
-    // console.log(state.author.length, state.content.length);
-
     if (author.length < 1) {
       authorInput.current.focus();
       return;
@@ -24,9 +22,7 @@ const BulletinEditor = ({ isEdit, originData, id }) => {
       contentInput.current.focus();
       return;
     }
-    // console.log("state", state);
-    const id = originData.id;
-    console.log(id);
+    const id = isEdit ? chosenData.id : null;
     onCreateEdit(author, content, id, isEdit);
     // alert("저장 성공!");
     navigate("/");
@@ -34,17 +30,17 @@ const BulletinEditor = ({ isEdit, originData, id }) => {
 
   const handleRemove = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      onRemove(originData.id);
+      onRemove(chosenData.id);
       navigate("/", { replace: true });
     }
   };
 
   useEffect(() => {
     if (isEdit) {
-      setauthor(originData.author);
-      setContent(originData.content);
+      setauthor(chosenData.author);
+      setContent(chosenData.content);
     }
-  }, [isEdit, originData]);
+  }, [isEdit, chosenData]);
 
   return (
     <div className="bulletinEditor">
@@ -77,4 +73,4 @@ const BulletinEditor = ({ isEdit, originData, id }) => {
   );
 };
 
-export default BulletinEditor;
+export default React.memo(BulletinEditor);

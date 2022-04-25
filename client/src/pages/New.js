@@ -9,7 +9,7 @@ const New = () => {
       <div className="contents">
         <SideMenu />
         <div className="bulletin">
-          <BulletinEditor />
+          <BulletinEditor isEdit={false} />
         </div>
       </div>
     </div>

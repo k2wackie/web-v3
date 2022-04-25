@@ -7,7 +7,7 @@ import SideMenu from "../components/SideMenu";
 import BulletinEditor from "../components/BulletinEditor";
 
 const Edit = () => {
-  const [originData, setOriginData] = useState();
+  const [chosenData, setChosenData] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -20,7 +20,7 @@ const Edit = () => {
       );
 
       if (targetBulletin) {
-        setOriginData(targetBulletin);
+        setChosenData(targetBulletin);
       } else {
         alert("없는 게시물입니다.");
         navigate("/", { replace: true });
@@ -34,8 +34,8 @@ const Edit = () => {
       <div className="contents">
         <SideMenu />
         <div className="bulletin">
-          {originData && (
-            <BulletinEditor isEdit={true} originData={originData} />
+          {chosenData && (
+            <BulletinEditor isEdit={true} chosenData={chosenData} />
           )}
         </div>
       </div>
