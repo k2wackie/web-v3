@@ -23,6 +23,14 @@
   color: #f2f2f2;
 }
 
+.login {
+  width: 6%;
+  display: flex;
+  justify-content: center;
+
+  color: #f2f2f2;
+}
+
 .link {
   text-decoration: none;
 }

@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+.loginComp {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-content: center; */
+  /* flex-direction: column; */
+  /* min-height: 100vh; */
+  text-align: center;
+
+  position: relative;
+  top: 100px;
+
+  font-family: "Nanum Gothic", sans-serif;
+  color: #f2f2f2;
+}
+
+.loginBox {
+  display: inline-block;
+  border: 2px solid #f2f2f2;
+  border-radius: 15px;
+  padding: 50px;
+
+  font-size: 20px;
+}
+
+.registerMSG,
+.registerMSG > Link {
+  font-size: 15px;
+}
+
+.registerLink {
+  color: #f2f2f2;
+  font-weight: 400;
+}

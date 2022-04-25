@@ -9,6 +9,9 @@ const Header = () => {
         ACKIE PJT
       </Link>
       <MainMenu />
+      <Link className="login link" to="/login">
+        로그인
+      </Link>
     </div>
   );
 };

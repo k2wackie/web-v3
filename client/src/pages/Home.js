@@ -6,7 +6,7 @@ import BulletinList from "../components/BulletinList";
 
 const Home = () => {
   return (
-    <div className="Home">
+    <div className="HomePage">
       <Header />
       <div className="contents">
         <SideMenu />
