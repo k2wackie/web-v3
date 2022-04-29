@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Edit from "./pages/Edit";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Bulletin from "./pages/Bulletin";
 
 export const BulletinStateContext = React.createContext();
 export const BulletinDispatchContext = React.createContext();
@@ -72,8 +73,10 @@ function App() {
           <div className="App">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/bulletin" element={<Bulletin />} />
               <Route path="/new" element={<New />} />
               <Route path="/edit/:id" element={<Edit />} />
+              <Route path="/bulletin/edit/:id" element={<Edit />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>

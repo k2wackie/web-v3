@@ -66,6 +66,7 @@ const BulletinEditor = ({ isEdit, chosenData, id }) => {
         />
       </div>
       <div>
+        <button onClick={() => navigate(-1)}>돌아가기</button>
         <button onClick={handleSubmit}>저장하기</button>
         {isEdit ? <button onClick={handleRemove}>삭제하기</button> : ""}
       </div>

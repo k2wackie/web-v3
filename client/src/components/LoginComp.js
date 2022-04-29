@@ -21,7 +21,7 @@ const LoginComp = () => {
   return (
     <div className="loginComp">
       <div className="loginBox">
-        로그인
+        <div>로그인</div>
         <div>
           <input
             ref={userIDInput}
@@ -40,8 +40,9 @@ const LoginComp = () => {
             onChange={(e) => setUserPW(e.target.value)}
           />
         </div>
+        <div></div>
         <div>
-          <button onClick={handleSubmit}>로그인</button>
+          <button onClick={handleSubmit}>제 출</button>
         </div>
         <div>
           <p className="registerMSG">

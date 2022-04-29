@@ -18,7 +18,8 @@ const useLogin = (userInputData) => {
 
   const handleSubmit = async () => {
     if (userPW !== userChkPW) {
-      return alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
+      alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
+      return;
     }
     if (userID.length < 1) {
       userIDInput.current.focus();

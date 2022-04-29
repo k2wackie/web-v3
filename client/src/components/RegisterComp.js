@@ -21,15 +21,15 @@ const RegisterComp = () => {
 
   const [handleSubmit] = useRegist(userInputData);
   const [chkID, chkIDSubmit] = useChkID(userInputData);
-
+  console.log(chkID);
   const onClick = () => {
-    return chkID ? handleSubmit : alert("아이디 중복 확인을 해주세요.");
+    return chkID ? handleSubmit() : alert("아이디 중복 확인을 해주세요.");
   };
 
   return (
     <div className="loginComp">
       <div className="loginBox">
-        회원가입
+        <div>회원가입</div>
         <div>
           <input
             ref={userIDInput}
@@ -38,7 +38,9 @@ const RegisterComp = () => {
             value={userID}
             onChange={(e) => setUserID(e.target.value)}
           />
-          <button onClick={chkIDSubmit}>중복확인</button>
+          <button className="chkBtn" onClick={chkIDSubmit}>
+            중복확인
+          </button>
         </div>
         <div>
           <input
@@ -58,7 +60,7 @@ const RegisterComp = () => {
           />
         </div>
         <div>
-          <button onClick={onClick}>회원가입</button>
+          <button onClick={onClick}>제 출</button>
         </div>
         <div>
           <p className="registerMSG">
