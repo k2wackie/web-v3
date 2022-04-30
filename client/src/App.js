@@ -17,23 +17,26 @@ const reducer = (state, action) => {
       return action.data;
     }
     case "CREATE": {
-      fetch(action.data.isEdit ? "/edit" : "/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(action.data),
-      });
+      fetch(
+        action.data.isEdit ? "/api/bulletin/update" : "/api/bulletin/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(action.data),
+        }
+      );
       return [];
     }
     case "DELETE": {
-      fetch("/delete/" + action.data, {
+      fetch("/api/bulletin/delete/" + action.data, {
         method: "DELETE",
       }).catch((err) => console.log(err));
       return [];
     }
     default:
-      return state;
+      return [];
   }
 };
 
@@ -42,7 +45,7 @@ function App() {
 
   //GET DATA
   useEffect(() => {
-    fetch("/api")
+    fetch("/api/bulletin/read")
       .then((res) => res.json())
       .then((newData) => {
         dispatch({ type: "GET", data: newData });

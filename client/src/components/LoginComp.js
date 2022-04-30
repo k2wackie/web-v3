@@ -25,6 +25,7 @@ const LoginComp = () => {
         <div>
           <input
             ref={userIDInput}
+            type="text"
             name="userID"
             placeholder="아이디를 입력하세요."
             value={userID}
@@ -34,6 +35,7 @@ const LoginComp = () => {
         <div>
           <input
             ref={userPWInput}
+            type="password"
             name="userPSW"
             placeholder="비밀번호를 입력하세요."
             value={userPW}

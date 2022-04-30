@@ -33,6 +33,7 @@ const RegisterComp = () => {
         <div>
           <input
             ref={userIDInput}
+            type="text"
             name="userID"
             placeholder="아이디를 입력하세요."
             value={userID}
@@ -45,6 +46,7 @@ const RegisterComp = () => {
         <div>
           <input
             ref={userPWInput}
+            type="password"
             name="userPSW"
             placeholder="비밀번호를 입력하세요."
             value={userPW}
@@ -53,6 +55,7 @@ const RegisterComp = () => {
         </div>
         <div>
           <input
+            type="password"
             name="userChkPSW"
             placeholder="비밀번호를 다시 입력하세요."
             value={userChkPW}
