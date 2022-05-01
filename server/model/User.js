@@ -1,6 +1,6 @@
 "use strict";
-
-const db = require("../config/db");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const UserStorage = require("../model/UserStorage");
 
 class User {
@@ -9,15 +9,18 @@ class User {
   }
   async login() {
     const client = this.body;
-    console.log("body", this);
     const userID = client.userID;
     const userPW = client.userPW;
-    const params = [userID];
+    const userInfo = [userID];
     try {
-      const user = await UserStorage.getUserInfo(params);
-      console.log("sqlData", user);
+      const user = await UserStorage.getUserInfo(userInfo);
       if (user) {
-        if (user.user_ID === userID && user.user_PW === userPW) {
+        const isMatch = await bcrypt
+          .compare(userPW, user.user_PW)
+          .catch((err) => {
+            return { success: false, err };
+          });
+        if (user.user_ID === userID && isMatch) {
           return { success: true, chkID: true };
         } else {
           return {
@@ -41,9 +44,18 @@ class User {
     const client = this.body;
     const userID = client.userID;
     const userPW = client.userPW;
-    const params = [userID, userPW];
+    const userInfo = [userID, userPW];
+    await bcrypt
+      .hash(userPW, saltRounds)
+      .then(async (hash) => {
+        userInfo[1] = hash;
+      })
+      .catch((err) => {
+        return { success: false, err };
+      });
+
     try {
-      const response = await UserStorage.register(params);
+      const response = await UserStorage.register(userInfo);
       return response;
     } catch (err) {
       return { success: false, err };
