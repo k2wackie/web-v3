@@ -2,24 +2,13 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MainMenu from "./MainMenu";
 import { AuthStateContext } from "../hoc/Auth";
+import uselogout from "../hooks/useLogout";
 
 const Header = () => {
   const isAuth = useContext(AuthStateContext);
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
-    fetch("/api/logout")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        if (res.logoutSuccess) {
-          navigate("/login");
-        } else {
-          alert("로그아웃을 실패 했습니다.");
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  const [logoutHandler] = uselogout();
 
   const loginHandler = () => {
     navigate("/login");
