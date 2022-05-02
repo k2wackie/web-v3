@@ -17,7 +17,6 @@ class User {
     const userInfo = [token, userID];
     try {
       const user = await UserStorage.getUserInfo(userInfo);
-      // console.log(user);
       if (user) {
         const isMatch = await bcrypt
           .compare(userPW, user.user_PW)
@@ -70,7 +69,6 @@ class User {
   async logout() {
     const client = this.body;
     const userID = client.user_ID;
-    // console.log(client);
     const token = null;
     const userInfo = [token, userID];
     try {
@@ -82,11 +80,7 @@ class User {
   }
 
   static async findByToken(token, cb) {
-    // const client = this.body;
-    // const userID = client.userID;
     jwt.verify(token, "secretToken", async (err, decoded) => {
-      // console.log("decoded", decoded);
-      // const userInfo = [token, userID];
       try {
         const user = await UserStorage.findByToken(token);
         return cb(null, user);

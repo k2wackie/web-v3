@@ -1,21 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MainMenu from "./MainMenu";
+import { AuthStateContext } from "../hoc/Auth";
 
-const Header = ({ user, isAuth }) => {
+const Header = () => {
+  const isAuth = useContext(AuthStateContext);
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    const req = {
-      user,
-    };
-    fetch("/api/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(req),
-    })
+    fetch("/api/logout")
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
@@ -32,7 +25,6 @@ const Header = ({ user, isAuth }) => {
     navigate("/login");
   };
 
-  // console.log("head", user, isAuth);
   return (
     <div className="Header">
       <Link className="logo link" to="/">

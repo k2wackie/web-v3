@@ -29,8 +29,6 @@ const process = {
   },
 
   auth: async (req, res) => {
-    // const user = new User(req.body);
-    // console.log("req", req.user.user_ID);
     const url = {
       method: "POST",
       path: "/login",
@@ -44,7 +42,7 @@ const process = {
 
   logout: async (req, res) => {
     const user = new User(req.user);
-    const response = await user.logout();
+    await user.logout();
     const url = {
       method: "POST",
       path: "/login",

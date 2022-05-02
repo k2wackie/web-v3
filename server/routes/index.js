@@ -14,6 +14,6 @@ router.delete("/api/bulletin/delete/:id", bulletinCtrl.process.delete);
 router.post("/api/login", userCtrl.process.login);
 router.post("/api/user_register", userCtrl.process.create);
 router.get("/api/auth", auth, userCtrl.process.auth);
-router.post("/api/logout", auth, userCtrl.process.logout);
+router.get("/api/logout", auth, userCtrl.process.logout);
 
 module.exports = router;

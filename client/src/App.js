@@ -71,8 +71,11 @@ function App() {
   };
 
   const AuthHomePage = Auth(Home, null);
-  const AuthBulletinPage = Auth(Bulletin, false);
+  const AuthBulletinPage = Auth(Bulletin, true);
   const AuthNewPage = Auth(New, null);
+  const AuthEditPage = Auth(Edit, true);
+  const AuthLoginPage = Auth(Login, false);
+  const AuthRegisterPage = Auth(Register, false);
 
   return (
     <BulletinStateContext.Provider value={data}>
@@ -83,10 +86,10 @@ function App() {
               <Route path="/" element={<AuthHomePage />} />
               <Route path="/bulletin" element={<AuthBulletinPage />} />
               <Route path="/new" element={<AuthNewPage />} />
-              <Route path="/edit/:id" element={<Edit />} />
-              <Route path="/bulletin/edit/:id" element={<Edit />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/edit/:id" element={<AuthEditPage />} />
+              <Route path="/bulletin/edit/:id" element={<AuthEditPage />} />
+              <Route path="/login" element={<AuthLoginPage />} />
+              <Route path="/register" element={<AuthRegisterPage />} />
             </Routes>
           </div>
         </BrowserRouter>
