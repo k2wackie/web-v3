@@ -7,6 +7,7 @@ import Edit from "./pages/Edit";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Bulletin from "./pages/Bulletin";
+import Auth from "./hoc/Auth";
 
 export const BulletinStateContext = React.createContext();
 export const BulletinDispatchContext = React.createContext();
@@ -69,15 +70,19 @@ function App() {
     dispatch({ type: "DELETE", data: id });
   };
 
+  const AuthHomePage = Auth(Home, null);
+  const AuthBulletinPage = Auth(Bulletin, false);
+  const AuthNewPage = Auth(New, null);
+
   return (
     <BulletinStateContext.Provider value={data}>
       <BulletinDispatchContext.Provider value={{ onCreateEdit, onRemove }}>
         <BrowserRouter>
           <div className="App">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/bulletin" element={<Bulletin />} />
-              <Route path="/new" element={<New />} />
+              <Route path="/" element={<AuthHomePage />} />
+              <Route path="/bulletin" element={<AuthBulletinPage />} />
+              <Route path="/new" element={<AuthNewPage />} />
               <Route path="/edit/:id" element={<Edit />} />
               <Route path="/bulletin/edit/:id" element={<Edit />} />
               <Route path="/login" element={<Login />} />

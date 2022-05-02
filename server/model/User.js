@@ -1,19 +1,23 @@
 "use strict";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+var jwt = require("jsonwebtoken");
 const UserStorage = require("../model/UserStorage");
 
 class User {
   constructor(body) {
     this.body = body;
   }
+
   async login() {
     const client = this.body;
     const userID = client.userID;
     const userPW = client.userPW;
-    const userInfo = [userID];
+    let token = jwt.sign(userID.toString(), "secretToken");
+    const userInfo = [token, userID];
     try {
       const user = await UserStorage.getUserInfo(userInfo);
+      // console.log(user);
       if (user) {
         const isMatch = await bcrypt
           .compare(userPW, user.user_PW)
@@ -21,7 +25,7 @@ class User {
             return { success: false, err };
           });
         if (user.user_ID === userID && isMatch) {
-          return { success: true, chkID: true };
+          return { success: true, chkID: true, token };
         } else {
           return {
             success: false,
@@ -40,6 +44,7 @@ class User {
       return { success: false, err };
     }
   }
+
   async register() {
     const client = this.body;
     const userID = client.userID;
@@ -60,6 +65,35 @@ class User {
     } catch (err) {
       return { success: false, err };
     }
+  }
+
+  async logout() {
+    const client = this.body;
+    const userID = client.user_ID;
+    // console.log(client);
+    const token = null;
+    const userInfo = [token, userID];
+    try {
+      const response = await UserStorage.logout(userInfo);
+      return response;
+    } catch (err) {
+      return { success: false, err };
+    }
+  }
+
+  static async findByToken(token, cb) {
+    // const client = this.body;
+    // const userID = client.userID;
+    jwt.verify(token, "secretToken", async (err, decoded) => {
+      // console.log("decoded", decoded);
+      // const userInfo = [token, userID];
+      try {
+        const user = await UserStorage.findByToken(token);
+        return cb(null, user);
+      } catch (err) {
+        return cb(err);
+      }
+    });
   }
 }
 

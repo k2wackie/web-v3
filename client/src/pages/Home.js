@@ -4,10 +4,11 @@ import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
 import BulletinList from "../components/BulletinList";
 
-const Home = () => {
+const Home = ({ user, isAuth }) => {
+  // console.log("home", user, isAuth);
   return (
     <div className="HomePage">
-      <Header />
+      <Header user={user} isAuth={isAuth} />
       <div className="contents">
         <SideMenu />
         <div className="bulletin">
