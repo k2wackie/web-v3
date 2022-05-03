@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const AuthStateContext = React.createContext();
 
 const Auth = (SpecificComponent, option, adminRoute = null) => {
-  console.log("auth");
   //option
   //null: 아무나 출입이 가능한 페이지
   //true: 로그인한 유저만 출입이 가능한 페이지
@@ -19,7 +18,6 @@ const Auth = (SpecificComponent, option, adminRoute = null) => {
       fetch("/api/auth")
         .then((res) => res.json())
         .then((res) => {
-          console.log("auth success");
           const is_Auth = res.isAuth;
           setIsAuth(is_Auth);
           if (!res.isAuth) {
@@ -37,7 +35,7 @@ const Auth = (SpecificComponent, option, adminRoute = null) => {
             }
           }
         });
-    }, []);
+    }, [navigate]);
     return (
       <AuthStateContext.Provider value={isAuth}>
         <SpecificComponent />;

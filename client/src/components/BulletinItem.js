@@ -14,7 +14,7 @@ const BulletinItem = ({ id, author, content, in_date }) => {
   const day = date.getDay();
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+  // const seconds = date.getSeconds();
 
   // console.log(new Date(in_date).toLocaleString());
   return (
